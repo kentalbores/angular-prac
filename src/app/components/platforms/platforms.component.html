@@ -1,1 +1,27 @@
-<p>platforms works! {{ x }}</p>
+<div class="platforms-container">
+  <h1>Password Manager</h1>
+  <h2>Platforms</h2>
+
+  <div *ngIf="loading" class="loading">Loading platforms...</div>
+
+  <div *ngIf="error" class="error-message">{{ error }}</div>
+
+  <div *ngIf="!loading && !error && platforms.length === 0" class="no-platforms">
+    No platforms found. Create one to get started!
+  </div>
+
+  <div *ngIf="!loading && !error && platforms.length > 0" class="platforms-grid">
+    <div
+      *ngFor="let platform of platforms"
+      class="platform-card"
+      (click)="onPlatformClick(platform)">
+      <h3>{{ platform | titlecase }}</h3>
+      <p>View accounts</p>
+    </div>
+  </div>
+
+  <div class="add-platform-section">
+    <h3>Add New Platform</h3>
+    <app-platform-form (platformAdded)="onPlatformAdded($event)"></app-platform-form>
+  </div>
+</div>

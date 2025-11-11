@@ -1,1 +1,21 @@
-<p>platform-form works!</p>
+<form [formGroup]="platformForm" (ngSubmit)="onSubmit()" class="platform-form">
+  <div class="form-group">
+    <label for="platformName">Platform Name:</label>
+    <input
+      type="text"
+      id="platformName"
+      formControlName="platformName"
+      placeholder="e.g., instagram, linkedin"
+      class="form-control"
+      [class.error]="platformName?.invalid && platformName?.touched">
+
+    <div class="error-messages" *ngIf="platformName?.invalid && platformName?.touched">
+      <div *ngIf="platformName?.errors?.['required']">Platform name is required</div>
+      <div *ngIf="platformName?.errors?.['minlength']">Platform name must be at least 2 characters</div>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="platformForm.invalid" class="btn btn-primary">
+    Add Platform
+  </button>
+</form>

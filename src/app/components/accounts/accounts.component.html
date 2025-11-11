@@ -1,1 +1,45 @@
-<p>accounts works!</p>
+<div class="accounts-container">
+  <div class="header">
+    <button (click)="goBack()" class="btn btn-secondary back-btn">← Back to Platforms</button>
+    <h1>{{ platformName | titlecase }} Accounts</h1>
+  </div>
+
+  <div class="content">
+    <div class="accounts-section">
+      <h2>Existing Accounts</h2>
+
+      <div *ngIf="loading" class="loading">Loading accounts...</div>
+
+      <div *ngIf="error" class="error-message">{{ error }}</div>
+
+      <div *ngIf="!loading && !error && accounts.length === 0" class="no-accounts">
+        No accounts found for {{ platformName }}.
+      </div>
+
+      <div *ngIf="!loading && !error && accounts.length > 0" class="accounts-grid">
+        <div *ngFor="let account of accounts" class="account-card">
+          <div class="account-info">
+            <h3>{{ account.username }}</h3>
+            <div class="password-container">
+              <label>Password:</label>
+              <p class="password" [class.password-missing]="!account.password">
+                {{ account.password || '(No password stored)' }}
+              </p>
+            </div>
+          </div>
+          <div class="account-meta">
+            <small>ID: {{ account.id }}</small>
+            <div *ngIf="account.row_number" class="row-number">
+              <small>Row: {{ account.row_number }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="add-account-section">
+      <h2>Add New Account</h2>
+      <app-account-form [platform]="platformName" (accountAdded)="onAccountAdded($event)"></app-account-form>
+    </div>
+  </div>
+</div>

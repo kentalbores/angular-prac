@@ -1,0 +1,13 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-brand" (click)="navigateToHome()" style="cursor: pointer;">
+      <h1>🔐 Password Manager</h1>
+    </div>
+
+    <div class="navbar-info">
+      <span *ngIf="currentRoute && currentRoute !== '/'" class="current-route">
+        Current: {{ currentRoute | titlecase }}
+      </span>
+    </div>
+  </div>
+</nav>
